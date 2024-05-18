@@ -1,4 +1,4 @@
-package com.ipostu.androidjettycontainer
+package com.ipostu.androidjettycontainer.core.log
 
 
 import android.util.Log

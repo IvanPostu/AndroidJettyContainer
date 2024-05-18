@@ -1,4 +1,4 @@
-package com.ipostu.androidjettycontainer;
+package com.ipostu.androidjettycontainer.util;
 
 import android.app.PendingIntent;
 import android.content.Context;

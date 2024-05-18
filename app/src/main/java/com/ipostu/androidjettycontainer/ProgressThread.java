@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.ipostu.androidjettycontainer.util.FileTools;
+
 import org.eclipse.jetty.util.IO;
 
 import java.io.File;

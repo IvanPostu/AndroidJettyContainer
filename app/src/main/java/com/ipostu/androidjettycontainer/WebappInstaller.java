@@ -3,6 +3,8 @@ package com.ipostu.androidjettycontainer;
 
 import android.util.Log;
 
+import com.ipostu.androidjettycontainer.util.FileTools;
+
 import org.eclipse.jetty.util.IO;
 import org.eclipse.jetty.util.resource.JarResource;
 import org.eclipse.jetty.util.resource.Resource;

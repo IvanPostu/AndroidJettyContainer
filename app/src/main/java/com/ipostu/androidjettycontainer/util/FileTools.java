@@ -1,4 +1,4 @@
-package com.ipostu.androidjettycontainer;
+package com.ipostu.androidjettycontainer.util;
 
 
 import android.os.Environment;

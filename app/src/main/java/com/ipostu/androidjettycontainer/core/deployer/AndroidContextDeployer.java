@@ -1,15 +1,4 @@
-package com.ipostu.androidjettycontainer;
-
-
-import org.eclipse.jetty.deploy.ConfigurationManager;
-import org.eclipse.jetty.server.handler.ContextHandler;
-import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.util.AttributesMap;
-import org.eclipse.jetty.util.Scanner;
-import org.eclipse.jetty.util.component.AbstractLifeCycle;
-import org.eclipse.jetty.util.log.Log;
-import org.eclipse.jetty.util.resource.Resource;
-import org.eclipse.jetty.xml.XmlConfiguration;
+package com.ipostu.androidjettycontainer.core.deployer;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -18,6 +7,16 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.eclipse.jetty.util.component.AbstractLifeCycle;
+import org.eclipse.jetty.deploy.ConfigurationManager;
+import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.util.AttributesMap;
+import org.eclipse.jetty.util.log.Log;
+import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.util.Scanner;
+import org.eclipse.jetty.xml.XmlConfiguration;
 
 /**
  * AndroidContextDeployer
@@ -55,16 +54,16 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
         }
     }
 
-    private AttributesMap _attributes         = null;
+    private AttributesMap            _attributes         = null;
     public final static String       NAME                = "ConfiguredDeployer";
     private int                      _scanInterval       = 10;
     private Scanner                  _scanner;
     private ScannerListener          _scannerListener;
-    private Resource _configurationDir;
+    private Resource                 _configurationDir;
     @SuppressWarnings("unchecked")
-    private Map _currentDeployments = new HashMap();
+    private Map                      _currentDeployments = new HashMap();
     private ContextHandlerCollection _contexts;
-    private ConfigurationManager _configMgr;
+    private ConfigurationManager     _configMgr;
 
     private boolean                  _recursive          = false;
 

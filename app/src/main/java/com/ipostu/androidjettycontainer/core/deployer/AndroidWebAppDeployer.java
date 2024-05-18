@@ -1,22 +1,22 @@
-package com.ipostu.androidjettycontainer;
-
-
-import org.eclipse.jetty.deploy.ContextDeployer;
-import org.eclipse.jetty.deploy.WebAppDeployer;
-import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.handler.ContextHandler;
-import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.util.AttributesMap;
-import org.eclipse.jetty.util.URIUtil;
-import org.eclipse.jetty.util.log.Log;
-import org.eclipse.jetty.util.resource.Resource;
-import org.eclipse.jetty.webapp.WebAppContext;
+package com.ipostu.androidjettycontainer.core.deployer;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.HandlerContainer;
+import org.eclipse.jetty.deploy.ContextDeployer;
+import org.eclipse.jetty.deploy.WebAppDeployer;
+import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.util.log.Log;
+import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.util.AttributesMap;
+import org.eclipse.jetty.util.URIUtil;
 
 /**
  * Web Application Deployer.
@@ -35,7 +35,7 @@ import java.util.List;
  * @see {@link ContextDeployer}
  */
 public class AndroidWebAppDeployer extends WebAppDeployer {
-    private List<? super ServletContextHandler> _deployed;
+    private List<? super ServletContextHandler>     _deployed;
     private AttributesMap _attributes = new AttributesMap();
 
     @Override

@@ -1,4 +1,4 @@
-package com.ipostu.androidjettycontainer;
+package com.ipostu.androidjettycontainer.util;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ipostu.androidjettycontainer.R;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;

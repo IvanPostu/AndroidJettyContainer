@@ -1,4 +1,4 @@
-package com.ipostu.androidjettycontainer;
+package com.ipostu.androidjettycontainer.core.webapp;
 
 
 import org.eclipse.jetty.util.log.Log;

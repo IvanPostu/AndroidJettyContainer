@@ -19,6 +19,13 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.ipostu.androidjettycontainer.core.deployer.AndroidContextDeployer;
+import com.ipostu.androidjettycontainer.core.deployer.AndroidWebAppDeployer;
+import com.ipostu.androidjettycontainer.core.handler.DefaultHandler;
+import com.ipostu.androidjettycontainer.util.AndroidUtils;
+import com.ipostu.androidjettycontainer.util.AppTools;
+import com.ipostu.androidjettycontainer.util.FileTools;
+
 import org.eclipse.jetty.http.HttpGenerator;
 import org.eclipse.jetty.http.ssl.SslContextFactory;
 import org.eclipse.jetty.security.HashLoginService;
@@ -27,7 +34,6 @@ import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.bio.SocketConnector;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.server.ssl.SslSelectChannelConnector;
@@ -62,7 +68,7 @@ public class JettyServerService extends Service {
     public static final String[] __configurationClasses =
             new String[]
                     {
-                            "com.ipostu.androidjettycontainer.AndroidWebInfConfiguration",
+                            "com.ipostu.androidjettycontainer.core.webapp.AndroidWebInfConfiguration",
                             "org.eclipse.jetty.webapp.WebXmlConfiguration",
                             "org.eclipse.jetty.webapp.JettyWebXmlConfiguration",
                             "org.eclipse.jetty.webapp.TagLibConfiguration"

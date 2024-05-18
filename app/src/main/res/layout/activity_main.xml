@@ -44,7 +44,6 @@
                     android:id="@+id/start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="40px"
                     android:layout_weight="1.0"
                     android:text="@string/start_jetty" />
 
@@ -52,7 +51,6 @@
                     android:id="@+id/stop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="40px"
                     android:layout_weight="1.0"
                     android:text="@string/stop_jetty" />
 
@@ -66,7 +64,6 @@
                     android:id="@+id/config"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="40px"
                     android:layout_weight="1"
                     android:text="@string/config_jetty" />
 
@@ -74,7 +71,6 @@
                     android:id="@+id/download"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="40px"
                     android:layout_weight="1"
                     android:text="@string/start_download" />
             </TableRow>

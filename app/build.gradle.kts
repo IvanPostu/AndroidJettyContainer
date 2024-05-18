@@ -47,6 +47,8 @@ dependencies {
     implementation("org.eclipse.jetty:jetty-deploy:8.1.2.v20120308")
     implementation("org.eclipse.jetty:jetty-client:8.1.2.v20120308")
 
+    implementation("javax.servlet:javax.servlet-api:3.0.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
