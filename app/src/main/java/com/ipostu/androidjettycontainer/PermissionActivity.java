@@ -117,7 +117,6 @@ public abstract class PermissionActivity extends AppCompatActivity {
         }
     }
 
-    // 从系统权限设置页返回判断
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

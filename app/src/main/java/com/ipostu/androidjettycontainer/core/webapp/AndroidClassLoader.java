@@ -116,12 +116,10 @@ public class AndroidClassLoader extends ClassLoader //extends WebAppClassLoader
         return ".zip".equals(extension) || ".apk".equals(extension);
     }
 
-    // add by zollty
     public Enumeration<URL> findResources(String name) throws IOException {
         return _delegate.getResources(name);
     }
 
-    // add by zollty
     protected URL findResource(String name) {
         return _delegate.getResource(name);
     }
