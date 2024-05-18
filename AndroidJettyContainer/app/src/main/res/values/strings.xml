@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Android Jetty Container</string>
+
+    <string name="download_default_url">https://raw.githubusercontent.com/IvanPostu/KnowledgeBase/main/web-app.war</string>
     <string name="jetty_started">Jetty started</string>
     <string name="jetty_starting">Jetty starting</string>
     <string name="jetty_stopping">Jetty stopping</string>

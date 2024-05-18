@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
 
 public class FileTools {
     private static final String TAG = "Jetty";
-    public static final String __WORK_DIR = "work";
+    public static final String __WORK_DIR = "work";3
     public static final String __TMP_DIR = "tmp";
     public static final String __WEBAPP_DIR = "webapps";
     public static final String __ETC_DIR = "etc";

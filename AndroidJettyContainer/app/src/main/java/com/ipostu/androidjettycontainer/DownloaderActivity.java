@@ -209,6 +209,7 @@ public class DownloaderActivity extends Activity {
                 });
                 builder.show();
             } else
+                Log.d(TAG, "Download: " + url + ", path: " + path);
                 doDownload(url, warFile, path);
         } catch (Exception e) {
             Log.e(TAG, "Error creating file " + war, e);
