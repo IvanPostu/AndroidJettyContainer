@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
@@ -29,6 +29,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".EditorPreferenceActivity"
+            android:theme="@style/Theme.AndroidJettyContainer" />
+        <activity
+            android:name=".DownloaderActivity"
+            android:theme="@style/Theme.AndroidJettyContainer" />
+        <activity
+            android:name=".SdCardUnavailableActivity"
+            android:theme="@style/Theme.AndroidJettyContainer" />
 
         <service android:name=".JettyServerService" />
     </application>

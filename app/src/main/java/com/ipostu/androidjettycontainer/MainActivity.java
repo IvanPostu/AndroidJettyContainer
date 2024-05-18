@@ -173,19 +173,18 @@ public class MainActivity extends PermissionActivity {
         });
 
 
-        // TODO
-//        configButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                EditorPreferenceActivity.show(MainActivity.this);
-//            }
-//        });
-//
-//
-//        downloadButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                DownloaderActivity.show(MainActivity.this);
-//            }
-//        });
+        configButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditorPreferenceActivity.show(MainActivity.this);
+            }
+        });
+
+
+        downloadButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                DownloaderActivity.show(MainActivity.this);
+            }
+        });
 
         info = (TextView) findViewById(R.id.info);
         footer = (TextView) findViewById(R.id.footer);
@@ -202,8 +201,10 @@ public class MainActivity extends PermissionActivity {
         infoBuffer.append(AppTools.formatJettyInfoLine("On %s using Android version %s", AndroidInfo.getDeviceModel(), AndroidInfo.getOSVersion()));
         info.setText(Html.fromHtml(infoBuffer.toString()));
 
+
         StringBuilder footerBuffer = new StringBuilder();
-        footerBuffer.append("<b>Support:</b> http://www.jretty.com/ <br/>");
+        footerBuffer.append("<b>Project:</b> <a href=\"https://github.com/</a> <br/>");
+        footerBuffer.append("<b>Server:</b> http://www.eclipse.org/jetty/ <br/>");
         footer.setText(Html.fromHtml(footerBuffer.toString()));
     }
 
@@ -234,19 +235,18 @@ public class MainActivity extends PermissionActivity {
 
     @Override
     protected void onResume() {
-        // TODO
-//        if (!SdCardUnavailableActivity.isExternalStorageAvailable()) {
-//            SdCardUnavailableActivity.show(this);
-//        } else {
-//            //work out if we need to do the installation finish step
-//            //or not. We do it iff:
-//            // - there is no previous jetty version on disk
-//            // - the previous version does not match the current version
-//            // - we're not already doing the update
-//            if (ProgressThread.isUpdateNeeded(MainActivity.this)) {
-//                setupJetty();
-//            }
-//        }
+        if (!SdCardUnavailableActivity.isExternalStorageAvailable()) {
+            SdCardUnavailableActivity.show(this);
+        } else {
+            //work out if we need to do the installation finish step
+            //or not. We do it iff:
+            // - there is no previous jetty version on disk
+            // - the previous version does not match the current version
+            // - we're not already doing the update
+            if (ProgressThread.isUpdateNeeded(MainActivity.this)) {
+                setupJetty();
+            }
+        }
 
         if (JettyServerService.isRunning()) {
             startButton.setEnabled(false);
