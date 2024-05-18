@@ -3,6 +3,8 @@ package com.ipostu.androidjettycontainer
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -17,10 +19,29 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import org.eclipse.jetty.util.log.Log
+import java.util.Date
 
 class MainActivity : PermissionActivity() {
 
     companion object {
+
+        const val __START_ACTION: String = "org.ijetty.server.app.start"
+        const val __STOP_ACTION: String = "org.ijetty.server.app.stop"
+
+
+        const val __PORT: String = "org.ijetty.server.app.port"
+        const val __NIO: String = "org.ijetty.server.app.nio"
+        const val __SSL: String = "org.ijetty.server.app.ssl"
+
+        const val __CONSOLE_PWD: String = "org.ijetty.server.app.console"
+        const val __PORT_DEFAULT: String = "8080"
+        const val __NIO_DEFAULT: Boolean = true
+        const val __SSL_DEFAULT: Boolean = false
+
+        const val __CONSOLE_PWD_DEFAULT: String = "admin"
+
+        const val __SETUP_PROGRESS_DIALOG: Int = 0
+
         // Static initializer block
         init {
             // Ensure parsing is not validating - does not work with android
@@ -29,30 +50,13 @@ class MainActivity : PermissionActivity() {
 
             // Bridge Jetty logging to Android logging
             System.setProperty(
-                "org.eclipse.jetty.util.log.class", "org.ijetty.server.core.log.AndroidLog"
+                "org.eclipse.jetty.util.log.class", "com.ipostu.androidjettycontainer.AndroidLog"
             )
             Log.setLog(AndroidLog())
         }
     }
 
     private val TAG = "Jetty"
-
-    val __START_ACTION: String = "org.ijetty.server.app.start"
-    val __STOP_ACTION: String = "org.ijetty.server.app.stop"
-
-
-    val __PORT: String = "org.ijetty.server.app.port"
-    val __NIO: String = "org.ijetty.server.app.nio"
-    val __SSL: String = "org.ijetty.server.app.ssl"
-
-    val __CONSOLE_PWD: String = "org.ijetty.server.app.console"
-    val __PORT_DEFAULT: String = "8080"
-    val __NIO_DEFAULT: Boolean = true
-    val __SSL_DEFAULT: Boolean = false
-
-    val __CONSOLE_PWD_DEFAULT: String = "admin"
-
-    val __SETUP_PROGRESS_DIALOG: Int = 0
 
     private val consoleBuffer = StringBuilder()
     private val handler: Handler
@@ -115,7 +119,64 @@ class MainActivity : PermissionActivity() {
         filter.addAction(__STOP_ACTION)
         filter.addCategory("default")
 
+        broadcastReceiver =
+            object : BroadcastReceiver() {
+                override fun onReceive(context: Context, intent: Intent) {
+                    if (__START_ACTION.equals(intent.action, ignoreCase = true)) {
+                        startButton.isEnabled = false
+                        configButton.isEnabled = false
+                        stopButton.isEnabled = true
+                        consolePrint("<br/>Started Jetty at %s", Date())
+                        val connectors = intent.extras!!.getStringArray("connectors")
+                        if (null != connectors) {
+                            for (i in connectors.indices) consolePrint(connectors[i])
+                        }
 
+                        AppTools.printNetworkInterfaces(consoleBuffer)
+
+                        if (AndroidInfo.isOnEmulator(this@MainActivity)) {
+                            consolePrint("Set up port forwarding to see i-jetty outside of the emulator.")
+                        } else {
+                            consolePrint("")
+                        }
+                    } else if (__STOP_ACTION.equals(intent.action, ignoreCase = true)) {
+                        startButton.isEnabled = true
+                        configButton.isEnabled = true
+                        stopButton.isEnabled = false
+                        consolePrint("<br/> Jetty stopped at %s", Date())
+                    }
+                }
+            }
+
+        registerReceiver(broadcastReceiver, filter)
+
+        startButton.setOnClickListener {
+            if (ProgressThread.isUpdateNeeded(this@MainActivity)) AppTools.showQuickToast(
+                this@MainActivity,
+                R.string.loading
+            )
+            else {
+                //TODO get these values from editable UI elements
+                val intent = Intent(
+                    this@MainActivity,
+                    JettyServerService::class.java
+                )
+                intent.putExtra(__PORT, __PORT_DEFAULT)
+                intent.putExtra(__NIO, __NIO_DEFAULT)
+                intent.putExtra(__SSL, __SSL_DEFAULT)
+                intent.putExtra(__CONSOLE_PWD, __CONSOLE_PWD_DEFAULT)
+                startService(intent)
+            }
+        }
+
+        stopButton.setOnClickListener {
+            stopService(
+                Intent(
+                    this@MainActivity,
+                    JettyServerService::class.java
+                )
+            )
+        }
 
         val infoBuffer = java.lang.StringBuilder()
         try {
