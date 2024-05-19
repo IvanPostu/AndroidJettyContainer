@@ -484,7 +484,7 @@ public class JettyServerService extends Service {
                 staticDeployer.setDefaultsDescriptor(FileTools.getJettyDirPath() + "/" + FileTools.__ETC_DIR + "/webdefault.xml");
                 staticDeployer.setContexts(contexts);
                 staticDeployer.setAttribute(CONTENT_RESOLVER_ATTRIBUTE, getContentResolver());
-                staticDeployer.setAttribute(ANDROID_CONTEXT_ATTRIBUTE, (Context) JettyServerService.this);
+                staticDeployer.setAttribute(ANDROID_CONTEXT_ATTRIBUTE, JettyServerService.this);
                 staticDeployer.setConfigurationClasses(JettyServerService.__configurationClasses);
                 staticDeployer.setAllowDuplicates(false);
             }

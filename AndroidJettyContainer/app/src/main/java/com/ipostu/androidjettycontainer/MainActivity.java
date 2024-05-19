@@ -19,6 +19,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ipostu.androidjettycontainer.core.log.AndroidLog;
+import com.ipostu.androidjettycontainer.services.MyForegroundService;
 import com.ipostu.androidjettycontainer.util.AndroidInfo;
 import com.ipostu.androidjettycontainer.util.AppTools;
 
@@ -113,6 +114,9 @@ public class MainActivity extends PermissionActivity {
         filter.addAction(__START_ACTION);
         filter.addAction(__STOP_ACTION);
         filter.addCategory("default");
+
+        Intent serviceIntent = new Intent(this, MyForegroundService.class);
+        startService(serviceIntent);
 
         bcastReceiver =
                 new BroadcastReceiver() {
