@@ -16,16 +16,16 @@
 
     <android.version>1.6_r2</android.version>
     <jetty.version>7.5.4.v20111024</jetty.version>
-    <servlet.version>2.5-20081211</servlet.version>
+    <servlet.version>3.0.1</servlet.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>org.mortbay.jetty</groupId>
-      <artifactId>servlet-api</artifactId>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
       <version>${servlet.version}</version>
       <scope>provided</scope>
-     </dependency>
+    </dependency>
 
     <dependency>
       <groupId>com.google.android</groupId>
@@ -53,7 +53,6 @@
               <!-- executable>${env.ANDROID_HOME}/platform-tools/dx</executable -->
               <executable>java</executable>
               <arguments>
-               <!-- <argument>-JXmx1024M</argument> -->
                 <argument>-jar</argument>
                 <argument>${env.ANDROID_HOME}/build-tools/30.0.2/lib/dx.jar</argument>
                 <argument>--dex</argument>

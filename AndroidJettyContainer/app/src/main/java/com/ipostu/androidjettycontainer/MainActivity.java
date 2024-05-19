@@ -51,6 +51,8 @@ public class MainActivity extends PermissionActivity {
     private Button startButton;
     private Button stopButton;
     private Button configButton;
+    private Button downloadButton;
+
     private TextView footer;
     private TextView info;
     private TextView console;
@@ -105,18 +107,18 @@ public class MainActivity extends PermissionActivity {
 
         setContentView(R.layout.activity_main);
 
-        startButton = (Button) findViewById(R.id.start);
-        stopButton = (Button) findViewById(R.id.stop);
-        configButton = (Button) findViewById(R.id.config);
-        final Button downloadButton = (Button) findViewById(R.id.download);
+        startButton = findViewById(R.id.start);
+        stopButton = findViewById(R.id.stop);
+        configButton = findViewById(R.id.config);
+        downloadButton = findViewById(R.id.download);
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(__START_ACTION);
         filter.addAction(__STOP_ACTION);
         filter.addCategory("default");
 
-        Intent serviceIntent = new Intent(this, MyForegroundService.class);
-        startService(serviceIntent);
+//        Intent serviceIntent = new Intent(this, MyForegroundService.class);
+//        startService(serviceIntent);
 
         bcastReceiver =
                 new BroadcastReceiver() {
