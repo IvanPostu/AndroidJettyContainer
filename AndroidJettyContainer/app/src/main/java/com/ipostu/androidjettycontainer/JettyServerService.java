@@ -494,7 +494,7 @@ public class JettyServerService extends Service {
                 contextDeployer.setScanInterval(10); // Don't eat the battery
                 contextDeployer.setConfigurationDir(FileTools.getJettyDirPath() + "/" + FileTools.__CONTEXTS_DIR);
                 contextDeployer.setAttribute(CONTENT_RESOLVER_ATTRIBUTE, getContentResolver());
-                contextDeployer.setAttribute(ANDROID_CONTEXT_ATTRIBUTE, (Context) JettyServerService.this);
+                contextDeployer.setAttribute(ANDROID_CONTEXT_ATTRIBUTE, JettyServerService.this);
                 contextDeployer.setContexts(contexts);
             }
 

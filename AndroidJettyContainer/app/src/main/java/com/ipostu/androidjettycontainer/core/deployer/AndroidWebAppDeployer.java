@@ -12,11 +12,13 @@ import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.util.AttributesMap;
 import org.eclipse.jetty.util.URIUtil;
+import org.glassfish.jersey.servlet.ServletContainer;
 
 /**
  * Web Application Deployer.
@@ -178,10 +180,24 @@ public class AndroidWebAppDeployer extends WebAppDeployer {
             Log.debug("AndroidWebAppDeployer: prepared " + app.toString());
             contexts.addHandler(wah);
             _deployed.add(wah);
+
+//            wah.addEventListener(new ContextLoaderListener(getSpringContext()));
+
+            ServletHolder serHol = wah.addServlet(ServletContainer.class, "/api/*");
+            serHol.setInitOrder(1);
+            serHol.setInitParameter("jersey.config.server.provider.packages",
+                    "org.mortbay.ijetty.resources");
+
             //jetty-7.3.0 onwards need to start explicitly due to different startup time ordering
             wah.start();
         }
     }
+
+//    private static WebApplicationContext getSpringContext() {
+//        final AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+//        context.scan("org.mortbay.ijetty.resources");
+//        return context;
+//    }
 
     public void setAttribute(String name, Object value) {
         _attributes.setAttribute(name, value);
