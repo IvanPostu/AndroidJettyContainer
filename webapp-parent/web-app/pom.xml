@@ -49,11 +49,22 @@
             <artifactId>jersey-container-servlet</artifactId>
             <version>2.23</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>2.26</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+            <version>2.23</version>
+        </dependency>
+        
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
+            <version>3.4</version>
         </dependency>
 
         <dependency>
@@ -74,7 +85,7 @@
                 <executions>
                     <execution>
                         <id>generate-dex</id>
-                        <phase>process-classes</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -86,26 +97,13 @@
                                 <argument>--dex</argument>
                                 <argument>--verbose</argument>
                                 <argument>--core-library</argument>
+                                <argument>--min-sdk-version=31</argument>
                                 <argument>--output=${project.build.directory}/classes.dex</argument>
                                 <argument>--positions=lines</argument>
-                                <argument>${project.build.directory}/classes/</argument>
                                 <argument>
-                                    ${env.M2_LOCAL_REPOSITORY}/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar
-                                </argument>
+                                    /home/ivan/Projects/AndroidJettyContainer/webapp-parent/web-app/target/web-app-1.0-SNAPSHOT/WEB-INF/classes/</argument>
                                 <argument>
-                                    ${env.M2_LOCAL_REPOSITORY}/org/glassfish/jersey/containers/jersey-container-servlet-core/2.23/jersey-container-servlet-core-2.23.jar
-                                </argument>
-                                <argument>
-                                    ${env.M2_LOCAL_REPOSITORY}/org/glassfish/jersey/core/jersey-server/2.23/jersey-server-2.23.jar
-                                </argument>
-                                <argument>
-                                    ${env.M2_LOCAL_REPOSITORY}/javax/ws/rs/javax.ws.rs-api/2.0.1/javax.ws.rs-api-2.0.1.jar
-                                </argument>
-                                <argument>
-                                    ${env.M2_LOCAL_REPOSITORY}/org/glassfish/jersey/core/jersey-common/2.23/jersey-common-2.23.jar
-                                </argument>
-                                <argument>
-                                    ${env.M2_LOCAL_REPOSITORY}/org/glassfish/jersey/bundles/repackaged/jersey-guava/2.23/jersey-guava-2.23.jar
+                                    /home/ivan/Projects/AndroidJettyContainer/webapp-parent/web-app/target/web-app-1.0-SNAPSHOT/WEB-INF/lib/
                                 </argument>
                             </arguments>
                         </configuration>
@@ -117,19 +115,21 @@
                 <executions>
                     <execution>
                         <id>copydex</id>
-                        <phase>process-classes</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
                         <configuration>
                             <tasks>
-                                <mkdir
-                                    dir="${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/lib" />
                                 <jar
                                     basedir="${project.build.directory}"
                                     update="true"
                                     includes="classes.dex"
-                                    destfile="${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/lib/classes.zip" />
+                                    destfile="${project.build.directory}/classes.zip"
+                                />
+
+                                <!--
+                                destfile="${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/lib/classes.zip" -->
                             </tasks>
                         </configuration>
                     </execution>

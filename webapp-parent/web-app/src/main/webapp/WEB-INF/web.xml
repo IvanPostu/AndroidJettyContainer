@@ -6,12 +6,22 @@
     <display-name>Jersey RESTful Application</display-name>
 
     <servlet>
-        <servlet-name>hello</servlet-name>
-        <servlet-class>org.mortbay.ijetty.hello.HelloWorld</servlet-class>
+        <servlet-name>ApplicationDispatcherServlet</servlet-name>
+        <servlet-class>org.mortbay.ijetty.dispatcher.ApplicationDispatcherServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>hello</servlet-name>
-        <url-pattern>/sayit/*</url-pattern>
+        <servlet-name>ApplicationDispatcherServlet</servlet-name>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
+
+<!--    <servlet>-->
+<!--        <servlet-name>hello</servlet-name>-->
+<!--        <servlet-class>org.mortbay.ijetty.hello.HelloWorld</servlet-class>-->
+<!--    </servlet>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>hello</servlet-name>-->
+<!--        <url-pattern>/sayit/*</url-pattern>-->
+<!--    </servlet-mapping>-->
 </web-app>
