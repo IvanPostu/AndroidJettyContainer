@@ -1,6 +1,6 @@
 package org.mortbay.ijetty.dispatcher;
 
-import jakarta.servlet.annotation.WebServlet;
+import org.apache.commons.lang3.StringUtils;
 import org.glassfish.hk2.api.DynamicConfiguration;
 import org.glassfish.hk2.api.DynamicConfigurationService;
 import org.glassfish.hk2.api.ServiceLocator;
@@ -18,6 +18,7 @@ import org.mortbay.ijetty.resources.HelloResource;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Enumeration;
 
-@WebServlet(urlPatterns = "/*")
 public class ApplicationDispatcherServlet extends HttpServlet {
     private ServletContainer servletContainer;
 
@@ -66,39 +66,39 @@ public class ApplicationDispatcherServlet extends HttpServlet {
         resourceConfig.register(HelloResource.class);
         servletContainer = new ServletContainer(resourceConfig);
 
-        ServletConfig servletConfig = new ServletConfig() {
-            @Override
-            public String getServletName() {
-                return "ApplicationDispatcherServlet";
-            }
-
-            @Override
-            public ServletContext getServletContext() {
-                return ApplicationDispatcherServlet.this.getServletContext();
-            }
-
-            @Override
-            public String getInitParameter(String name) {
-                return null;
-            }
-
-            @Override
-            public Enumeration<String> getInitParameterNames() {
-                return Collections.emptyEnumeration();
-            }
-        };
-        servletContainer.init(servletConfig);
+//        ServletConfig servletConfig = new ServletConfig() {
+//            @Override
+//            public String getServletName() {
+//                return "ApplicationDispatcherServlet";
+//            }
+//
+//            @Override
+//            public ServletContext getServletContext() {
+//                return ApplicationDispatcherServlet.this.getServletContext();
+//            }
+//
+//            @Override
+//            public String getInitParameter(String name) {
+//                return null;
+//            }
+//
+//            @Override
+//            public Enumeration<String> getInitParameterNames() {
+//                return Collections.emptyEnumeration();
+//            }
+//        };
+//        servletContainer.init(servletConfig);
     }
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        servletContainer.service(request, response);
-//        response.setContentType("text/html");
-//        ServletOutputStream out = response.getOutputStream();
-//        out.println("<html>");
-//        out.println("<h1>Hello 3 From Servlet Land! " + StringUtils.capitalize("hi") + "</h1>");
-//        out.println("</html>");
-//        out.flush();
+//        servletContainer.service(request, response);
+        response.setContentType("text/html");
+        ServletOutputStream out = response.getOutputStream();
+        out.println("<html>");
+        out.println("<h1>Hello 4 From Servlet Land! " + StringUtils.capitalize("hi") + "</h1>");
+        out.println("</html>");
+        out.flush();
     }
 
     private static void bind(final ServiceLocator locator, final Binder binder) {

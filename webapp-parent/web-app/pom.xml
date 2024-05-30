@@ -32,9 +32,9 @@
         </dependency>
 
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>5.0.0</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -125,11 +125,14 @@
                                     basedir="${project.build.directory}"
                                     update="true"
                                     includes="classes.dex"
-                                    destfile="${project.build.directory}/classes.zip"
+                                    destfile="${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/lib/classes.zip"
                                 />
+                                <exec executable="jar" dir="${project.build.directory}/${project.artifactId}-${project.version}" failonerror="true">
+                                    <arg value="cf"/>
+                                    <arg value="${project.build.directory}/${project.artifactId}-${project.version}-dexed.war"/>
+                                    <arg value="."/>
+                                </exec>
 
-                                <!--
-                                destfile="${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/lib/classes.zip" -->
                             </tasks>
                         </configuration>
                     </execution>
