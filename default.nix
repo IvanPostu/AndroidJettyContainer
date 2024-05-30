@@ -37,5 +37,7 @@ pkgs.stdenv.mkDerivation rec {
     export PROJECT_DIR="$PWD"
 
     chmod +x $PWD/scripts/*
+
+    export M2_LOCAL_REPOSITORY=$(mvnw help:evaluate -Dexpression=settings.localRepository -q -DforceStdout)
   '';
 }

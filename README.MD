@@ -9,7 +9,7 @@ $ $ANDROID_HOME/platform-tools/adb push ./webapp-parent/web-app/target/web-app-1
 $ $ANDROID_HOME/build-tools/34.0.0/dexdump -d ./classes.dex
 
 # rebuild and deploy (requires manual restart)
-$ mvnw install -f $PROJECT_DIR/webapp-parent/pom.xml && $ANDROID_HOME/platform-tools/adb push $PROJECT_DIR/webapp-parent/web-app/target/web-app-1.0-SNAPSHOT.war /storage/emulated/0/jetty/webapps/
+$ mvnw -f $PROJECT_DIR/webapp-parent/pom.xml install && $ANDROID_HOME/platform-tools/adb push $PROJECT_DIR/webapp-parent/web-app/target/web-app-1.0-SNAPSHOT.war /storage/emulated/0/jetty/webapps/
 
 # pair device through wifi
 $ $ANDROID_HOME/platform-tools/adb pair host:port

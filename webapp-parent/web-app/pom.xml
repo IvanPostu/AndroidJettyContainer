@@ -56,6 +56,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
             <version>${android.version}</version>
@@ -89,6 +95,7 @@
                                 <argument>--output=${project.build.directory}/classes.dex</argument>
                                 <argument>--positions=lines</argument>
                                 <argument>${project.build.directory}/classes/</argument>
+                                <argument>${env.M2_LOCAL_REPOSITORY}/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar</argument>
                             </arguments>
                         </configuration>
                     </execution>

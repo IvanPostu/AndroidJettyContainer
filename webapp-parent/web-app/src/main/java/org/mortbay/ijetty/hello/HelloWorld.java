@@ -1,5 +1,7 @@
 package org.mortbay.ijetty.hello;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
@@ -39,7 +41,7 @@ public class HelloWorld extends HttpServlet {
         response.setContentType("text/html");
         ServletOutputStream out = response.getOutputStream();
         out.println("<html>");
-        out.println("<h1>Hello 2 From Servlet Land!</h1>");
+        out.println("<h1>Hello 3 From Servlet Land! " + StringUtils.capitalize("hi") + "</h1>");
         out.println("Brought to you by: " + proofOfLife);
         out.println("</html>");
         out.flush();

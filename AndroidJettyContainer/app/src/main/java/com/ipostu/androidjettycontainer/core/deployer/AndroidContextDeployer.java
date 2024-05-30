@@ -22,7 +22,6 @@ import org.eclipse.jetty.xml.XmlConfiguration;
  * AndroidContextDeployer
  * TODO this class should be able to extend ContextDeployer rather than
  * reimplement it entirely.
- *
  */
 public class AndroidContextDeployer extends AbstractLifeCycle {
     /* ------------------------------------------------------------ */
@@ -54,18 +53,18 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
         }
     }
 
-    private AttributesMap            _attributes         = null;
-    public final static String       NAME                = "ConfiguredDeployer";
-    private int                      _scanInterval       = 10;
-    private Scanner                  _scanner;
-    private ScannerListener          _scannerListener;
-    private Resource                 _configurationDir;
+    private AttributesMap _attributes = null;
+    public final static String NAME = "ConfiguredDeployer";
+    private int _scanInterval = 10;
+    private Scanner _scanner;
+    private ScannerListener _scannerListener;
+    private Resource _configurationDir;
     @SuppressWarnings("unchecked")
-    private Map                      _currentDeployments = new HashMap();
+    private Map _currentDeployments = new HashMap();
     private ContextHandlerCollection _contexts;
-    private ConfigurationManager     _configMgr;
+    private ConfigurationManager _configMgr;
 
-    private boolean                  _recursive          = false;
+    private boolean _recursive = false;
 
     public AndroidContextDeployer() throws Exception {
         super();
@@ -74,12 +73,12 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * Create a WebAppContext for the webapp being hot deployed, then apply the
      * xml config file to it to configure it.
      *
-     * @param filename
-     *            the config file found in the hot deploy directory
+     * @param filename the config file found in the hot deploy directory
      * @return
      * @throws Exception
      */
@@ -124,8 +123,10 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * Start the hot deployer looking for webapps to deploy/undeploy
+     *
      * @see AbstractLifeCycle#doStart()
      */
     @Override
@@ -164,6 +165,7 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * Stop the hot deployer.
      *
@@ -180,6 +182,7 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * @return
      */
@@ -188,6 +191,7 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * @return
      */
@@ -196,6 +200,7 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * @return the ContextHandlerColletion to which to deploy the contexts
      */
@@ -204,6 +209,7 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * @return
      */
@@ -235,6 +241,7 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * @param file
      * @throws Exception
@@ -244,6 +251,7 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * @param resource
      */
@@ -255,6 +263,7 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * @param dir
      * @throws Exception
@@ -264,6 +273,7 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * @param configMgr
      */
@@ -272,11 +282,11 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * Associate with a {@link ContextHandlerCollection}.
      *
-     * @param contexts
-     *            the ContextHandlerColletion to which to deploy the contexts
+     * @param contexts the ContextHandlerColletion to which to deploy the contexts
      */
     public void setContexts(ContextHandlerCollection contexts) {
         if (isStarted() || isStarting()) {
@@ -286,6 +296,7 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * @param directory
      */
@@ -298,10 +309,10 @@ public class AndroidContextDeployer extends AbstractLifeCycle {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
-     * @param seconds
-     *            The period in second between scans for changed configuration
-     *            files. A zero or negative interval disables hot deployment
+     * @param seconds The period in second between scans for changed configuration
+     *                files. A zero or negative interval disables hot deployment
      */
     public void setScanInterval(int seconds) {
         if (isStarted() || isStarting()) {

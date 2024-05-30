@@ -20,14 +20,14 @@ import org.eclipse.jetty.util.URIUtil;
 
 /**
  * Web Application Deployer.
- *
+ * <p>
  * The class searches a directory for and deploys standard web application. At
  * startup, the directory specified by {@link #setWebAppDir(String)} is searched
  * for subdirectories (excluding hidden and CVS) or files ending with ".zip" or
  * "*.war". For each webapp discovered is passed to a new instance of
  * {@link WebAppContext} (or a subclass specified by {@link #getContexts()}.
  * {@link ContextHandlerCollection#getContextClass()}
- *
+ * <p>
  * This deployer does not do hot deployment or undeployment. Nor does it support
  * per webapplication configuration. For these features see
  * {@link ContextDeployer}.
@@ -35,7 +35,7 @@ import org.eclipse.jetty.util.URIUtil;
  * @see {@link ContextDeployer}
  */
 public class AndroidWebAppDeployer extends WebAppDeployer {
-    private List<? super ServletContextHandler>     _deployed;
+    private List<? super ServletContextHandler> _deployed;
     private AttributesMap _attributes = new AttributesMap();
 
     @Override
@@ -46,7 +46,7 @@ public class AndroidWebAppDeployer extends WebAppDeployer {
 
     @Override
     public void doStop() throws Exception {
-        for (int i = _deployed.size(); i-- > 0;) {
+        for (int i = _deployed.size(); i-- > 0; ) {
             ContextHandler wac = (ContextHandler) _deployed.get(i);
             wac.stop();// TODO Multi exception
         }
@@ -57,6 +57,7 @@ public class AndroidWebAppDeployer extends WebAppDeployer {
     }
 
     /* ------------------------------------------------------------ */
+
     /**
      * Scan for webapplications.
      */
@@ -77,7 +78,8 @@ public class AndroidWebAppDeployer extends WebAppDeployer {
 
         String[] files = r.list();
 
-        files: for (int f = 0; (files != null) && (f < files.length); f++) {
+        files:
+        for (int f = 0; (files != null) && (f < files.length); f++) {
             String context = files[f];
 
             if (context.equalsIgnoreCase("CVS/") ||
