@@ -5,21 +5,6 @@
 <web-app>
     <display-name>Jersey RESTful Application</display-name>
 
-<!--    <servlet>-->
-<!--        <servlet-name>Jersey Web Application</servlet-name>-->
-<!--        <servlet-class>org.mortbay.ijetty.test.MyServletContainer</servlet-class>-->
-<!--        <init-param>-->
-<!--            <param-name>jersey.config.server.provider.packages</param-name>-->
-<!--            <param-value>org.mortbay.ijetty.resources</param-value>-->
-<!--        </init-param>-->
-<!--        <load-on-startup>1</load-on-startup>-->
-<!--    </servlet>-->
-
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>Jersey Web Application</servlet-name>-->
-<!--        <url-pattern>/api/*</url-pattern>-->
-<!--    </servlet-mapping>-->
-
     <servlet>
         <servlet-name>hello</servlet-name>
         <servlet-class>org.mortbay.ijetty.hello.HelloWorld</servlet-class>
