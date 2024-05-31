@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ipostu.webapp</groupId>
@@ -36,6 +36,20 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- RESTEasy JAX-RS implementation -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>3.0.5.Final</version>
+        </dependency>
+        <!-- RESTEasy Servlet Initialization -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-servlet-initializer</artifactId>
+            <version>3.0.5.Final</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -73,11 +87,12 @@
                                 <argument>--dex</argument>
                                 <argument>--verbose</argument>
                                 <argument>--core-library</argument>
-                                <argument>--min-sdk-version=31</argument>
+                                <argument>--min-sdk-version=30</argument>
                                 <argument>--output=${project.build.directory}/classes.dex</argument>
                                 <argument>--positions=lines</argument>
                                 <argument>
-                                    /home/ivan/Projects/AndroidJettyContainer/webapp-parent/web-app/target/web-app-1.0-SNAPSHOT/WEB-INF/classes/</argument>
+                                    /home/ivan/Projects/AndroidJettyContainer/webapp-parent/web-app/target/web-app-1.0-SNAPSHOT/WEB-INF/classes/
+                                </argument>
                                 <argument>
                                     /home/ivan/Projects/AndroidJettyContainer/webapp-parent/web-app/target/web-app-1.0-SNAPSHOT/WEB-INF/lib/
                                 </argument>
@@ -98,12 +113,14 @@
                         <configuration>
                             <tasks>
                                 <jar
-                                    basedir="${project.build.directory}"
-                                    update="true"
-                                    includes="classes.dex"
-                                    destfile="${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/lib/classes.zip"
+                                        basedir="${project.build.directory}"
+                                        update="true"
+                                        includes="classes.dex"
+                                        destfile="${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/lib/classes.zip"
                                 />
-                                <exec executable="jar" dir="${project.build.directory}/${project.artifactId}-${project.version}" failonerror="true">
+                                <exec executable="jar"
+                                      dir="${project.build.directory}/${project.artifactId}-${project.version}"
+                                      failonerror="true">
                                     <arg value="cf"/>
                                     <arg value="${project.build.directory}/${project.artifactId}-${project.version}-dexed.war"/>
                                     <arg value="."/>

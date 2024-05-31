@@ -2,25 +2,28 @@
 <web-app>
     <display-name>Jersey RESTful Application</display-name>
 
+    <!-- RESTEasy Configuration -->
+    <context-param>
+        <param-name>resteasy.servlet.mapping.prefix</param-name>
+        <param-value>/api</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+    </listener>
+
     <servlet>
-        <servlet-name>hello</servlet-name>
-        <servlet-class>org.mortbay.ijetty.hello.HelloWorld</servlet-class>
+        <servlet-name>ResteasyServlet</servlet-name>
+        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>org.mortbay.ijetty.MyApplication</param-value>
+        </init-param>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>hello</servlet-name>
-        <url-pattern>/sayit/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ApplicationDispatcherServlet</servlet-name>
-        <servlet-class>org.mortbay.ijetty.dispatcher.ApplicationDispatcherServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ApplicationDispatcherServlet</servlet-name>
+        <servlet-name>ResteasyServlet</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
-
 
 </web-app>
