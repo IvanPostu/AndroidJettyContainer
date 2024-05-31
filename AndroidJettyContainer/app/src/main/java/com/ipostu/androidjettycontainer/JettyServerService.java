@@ -433,13 +433,15 @@ public class JettyServerService extends Service {
 
             if (_useSSL) {
                 SslContextFactory sslContextFactory = new SslContextFactory();
-                sslContextFactory.setKeyStore(_keystoreFile);
-                sslContextFactory.setTrustStore(_truststoreFile);
-                sslContextFactory.setKeyStorePassword(_keystorePassword);
                 sslContextFactory.setKeyManagerPassword(_keymgrPassword);
-                sslContextFactory.setKeyStoreType("bks");
+
+                sslContextFactory.setKeyStorePath(_keystoreFile);
+                sslContextFactory.setKeyStorePassword(_keystorePassword);
+                sslContextFactory.setKeyStoreType("PKCS12");
+
+                sslContextFactory.setTrustStore(_truststoreFile);
                 sslContextFactory.setTrustStorePassword(_truststorePassword);
-                sslContextFactory.setTrustStoreType("bks");
+                sslContextFactory.setTrustStoreType("PKCS12");
 
                 //TODO SslSelectChannelConnector does not work on android 1.6, but does work on android 2.2
                 if (_useNIO) {

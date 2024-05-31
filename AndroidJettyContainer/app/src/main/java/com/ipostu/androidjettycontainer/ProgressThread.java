@@ -129,11 +129,11 @@ public class ProgressThread extends Thread {
         }
         sendProgressUpdate(50);
 
-        File keystore = new File(etcDir, "keystore");
+        File keystore = new File(etcDir, "keystore_p12");
         if (!keystore.exists() || updateNeeded) {
             try {
                 //get the keystore out of resources
-                InputStream is = activity.getResources().openRawResource(R.raw.keystore);
+                InputStream is = activity.getResources().openRawResource(R.raw.keystore_p12);
                 OutputStream os = new FileOutputStream(keystore);
                 IO.copy(is, os);
                 Log.i(TAG, "Loaded keystore");
