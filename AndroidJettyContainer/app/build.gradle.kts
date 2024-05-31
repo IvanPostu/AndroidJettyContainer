@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.navigationSafeArgs)
 }
 
 android {
@@ -46,11 +47,10 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    implementation("org.eclipse.jetty:jetty-webapp:8.1.2.v20120308")
-    implementation("org.eclipse.jetty:jetty-deploy:8.1.2.v20120308")
-    implementation("org.eclipse.jetty:jetty-client:8.1.2.v20120308")
+    implementation("org.eclipse.jetty:jetty-webapp:8.1.0.v20120127")
+    implementation("org.eclipse.jetty:jetty-deploy:8.1.0.v20120127")
+    implementation("org.eclipse.jetty:jetty-client:8.1.0.v20120127")
 
-    implementation("javax.servlet:javax.servlet-api:3.0.1")
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 

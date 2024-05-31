@@ -4,6 +4,8 @@
 
 ## Useful commands
 ```sh
+$ nix-shell --run bash --argstr jdkVersion 17 --run bash
+
 $ $ANDROID_HOME/platform-tools/adb push ./webapp-parent/web-app/target/web-app-1.0-SNAPSHOT.war /storage/emulated/0/jetty/webapps/
 
 $ $ANDROID_HOME/build-tools/34.0.0/dexdump -d ./classes.dex
@@ -13,6 +15,10 @@ $ mvnw -f $PROJECT_DIR/webapp-parent/pom.xml clean package && $ANDROID_HOME/plat
 
 # pair device through wifi
 $ $ANDROID_HOME/platform-tools/adb pair host:port
+
+$ ./gradlew assembleDebug
+
+$ ./gradlew assembleRelease
 ```
 
 ## `obfuscate` and `deobfuscate` jetty passwords
