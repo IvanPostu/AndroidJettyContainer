@@ -116,7 +116,7 @@ public class JettyServerService extends Service {
                         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                         // The PendingIntent to launch IJetty activity if the user selects this notification
                         PendingIntent contentIntent = AndroidUtils.getActivity(JettyServerService.this,
-                                new Intent(JettyServerService.this, MainActivity.class));
+                                new Intent(JettyServerService.this, MainActivityOld.class));
 //                        PendingIntent contentIntent = PendingIntent.getActivity(JettyServerService.this, 0,
 //                                new Intent(JettyServerService.this, MainActivity.class), 0);
 
@@ -140,7 +140,7 @@ public class JettyServerService extends Service {
                         mNM.notify(R.string.jetty_started, notification);
 
 
-                        Intent startIntent = new Intent(MainActivity.__START_ACTION);
+                        Intent startIntent = new Intent(MainActivityOld.__START_ACTION);
                         startIntent.addCategory("default");
                         Connector[] connectors = server.getConnectors();
                         if (connectors != null) {
@@ -165,7 +165,7 @@ public class JettyServerService extends Service {
                         mNM.cancel(R.string.jetty_started);
                         // Tell the user we stopped.
                         AppTools.showServiceToast(JettyServerService.this, R.string.jetty_stopped);
-                        Intent stopIntent = new Intent(MainActivity.__STOP_ACTION);
+                        Intent stopIntent = new Intent(MainActivityOld.__STOP_ACTION);
                         stopIntent.addCategory("default");
                         sendBroadcast(stopIntent);
                         break;

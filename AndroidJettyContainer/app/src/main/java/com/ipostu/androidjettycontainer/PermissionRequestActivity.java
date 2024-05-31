@@ -19,9 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.ipostu.androidjettycontainer.MainActivity;
-import com.ipostu.androidjettycontainer.R;
-
 public class PermissionRequestActivity extends Activity {
     private static final String TAG = "Jetty";
     /**
@@ -79,7 +76,7 @@ public class PermissionRequestActivity extends Activity {
      * @param activity Reference to LibraryActivity
      * @param intent The intent starting the parent activity
      */
-    public static void showWarning(final MainActivity activity, final Intent intent) {
+    public static void showWarning(final MainActivityOld activity, final Intent intent) {
         LayoutInflater inflater = LayoutInflater.from(activity);
         View view = inflater.inflate(R.layout.permission_request, null, false);
 

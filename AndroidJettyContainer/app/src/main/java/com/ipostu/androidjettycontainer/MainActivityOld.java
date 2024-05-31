@@ -19,13 +19,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ipostu.androidjettycontainer.core.log.AndroidLog;
-import com.ipostu.androidjettycontainer.services.MyForegroundService;
 import com.ipostu.androidjettycontainer.util.AndroidInfo;
 import com.ipostu.androidjettycontainer.util.AppTools;
 
 import java.util.Date;
 
-public class MainActivity extends PermissionActivity {
+public class MainActivityOld extends PermissionActivity {
 
     private static final String TAG = "Jetty";
 
@@ -79,7 +78,7 @@ public class MainActivity extends PermissionActivity {
         }
     }
 
-    public MainActivity() {
+    public MainActivityOld() {
         super();
         handler = new Handler() {
             public void handleMessage(Message msg) {
@@ -105,7 +104,7 @@ public class MainActivity extends PermissionActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_old);
 
         startButton = findViewById(R.id.start);
         stopButton = findViewById(R.id.stop);
@@ -137,7 +136,7 @@ public class MainActivity extends PermissionActivity {
 
                             AppTools.printNetworkInterfaces(consoleBuffer);
 
-                            if (AndroidInfo.isOnEmulator(MainActivity.this)) {
+                            if (AndroidInfo.isOnEmulator(MainActivityOld.this)) {
                                 consolePrint("Set up port forwarding to see i-jetty outside of the emulator.");
                             } else {
                                 consolePrint("");
@@ -158,11 +157,11 @@ public class MainActivity extends PermissionActivity {
         // Watch for button clicks.
         startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (ProgressThread.isUpdateNeeded(MainActivity.this))
-                    AppTools.showQuickToast(MainActivity.this, R.string.loading);
+                if (ProgressThread.isUpdateNeeded(MainActivityOld.this))
+                    AppTools.showQuickToast(MainActivityOld.this, R.string.loading);
                 else {
                     //TODO get these values from editable UI elements
-                    Intent intent = new Intent(MainActivity.this, JettyServerService.class);
+                    Intent intent = new Intent(MainActivityOld.this, JettyServerService.class);
                     intent.putExtra(__PORT, __PORT_DEFAULT);
                     intent.putExtra(__NIO, __NIO_DEFAULT);
                     intent.putExtra(__SSL, __SSL_DEFAULT);
@@ -174,21 +173,21 @@ public class MainActivity extends PermissionActivity {
 
         stopButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                stopService(new Intent(MainActivity.this, JettyServerService.class));
+                stopService(new Intent(MainActivityOld.this, JettyServerService.class));
             }
         });
 
 
         configButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditorPreferenceActivity.show(MainActivity.this);
+                EditorPreferenceActivity.show(MainActivityOld.this);
             }
         });
 
 
         downloadButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                DownloaderActivity.show(MainActivity.this);
+                DownloaderActivity.show(MainActivityOld.this);
             }
         });
 
@@ -249,7 +248,7 @@ public class MainActivity extends PermissionActivity {
             // - there is no previous jetty version on disk
             // - the previous version does not match the current version
             // - we're not already doing the update
-            if (ProgressThread.isUpdateNeeded(MainActivity.this)) {
+            if (ProgressThread.isUpdateNeeded(MainActivityOld.this)) {
                 setupJetty();
             }
         }
@@ -270,7 +269,7 @@ public class MainActivity extends PermissionActivity {
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case __SETUP_PROGRESS_DIALOG: {
-                progressDialog = new ProgressDialog(MainActivity.this);
+                progressDialog = new ProgressDialog(MainActivityOld.this);
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 progressDialog.setMessage("Finishing initial install ...");
 
@@ -283,12 +282,12 @@ public class MainActivity extends PermissionActivity {
 
     public void setupJetty() {
         showDialog(__SETUP_PROGRESS_DIALOG);
-        progressThread = new ProgressThread(MainActivity.this, handler);
+        progressThread = new ProgressThread(MainActivityOld.this, handler);
         progressThread.start();
     }
 
     public static void show(Context context) {
-        final Intent intent = new Intent(context, MainActivity.class);
+        final Intent intent = new Intent(context, MainActivityOld.class);
         context.startActivity(intent);
     }
 

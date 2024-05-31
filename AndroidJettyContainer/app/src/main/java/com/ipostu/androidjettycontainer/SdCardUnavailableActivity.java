@@ -36,7 +36,7 @@ public class SdCardUnavailableActivity extends Activity {
 
     public void doRetry(View v) {
         if (isExternalStorageAvailable()) {
-            MainActivity.show(this);
+            MainActivityOld.show(this);
             return;
         }
         AppTools.showQuickToast(this, R.string.sd_not_available);
