@@ -1,9 +1,16 @@
-<!DOCTYPE web-app PUBLIC
-        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-        "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app>
     <display-name>Jersey RESTful Application</display-name>
+
+    <servlet>
+        <servlet-name>hello</servlet-name>
+        <servlet-class>org.mortbay.ijetty.hello.HelloWorld</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>hello</servlet-name>
+        <url-pattern>/sayit/*</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>ApplicationDispatcherServlet</servlet-name>
@@ -12,16 +19,8 @@
 
     <servlet-mapping>
         <servlet-name>ApplicationDispatcherServlet</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
-<!--    <servlet>-->
-<!--        <servlet-name>hello</servlet-name>-->
-<!--        <servlet-class>org.mortbay.ijetty.hello.HelloWorld</servlet-class>-->
-<!--    </servlet>-->
 
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>hello</servlet-name>-->
-<!--        <url-pattern>/sayit/*</url-pattern>-->
-<!--    </servlet-mapping>-->
 </web-app>
