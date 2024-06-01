@@ -1,16 +1,16 @@
 # APK Servlet Container
 
-<img src="./forReadme/runningExample.png" style="max-width: 320px" />
+<img src="./forReadme/runningExample.png" style="max-width: 200px" />
 
 ## Useful commands
 ```sh
-$ nix-shell --run bash --argstr jdkVersion 17 --run bash
+$ nix-shell --run bash --argstr jdkVersion 17
 
 $ $ANDROID_HOME/platform-tools/adb push ./webapp-parent/web-app/target/web-app-1.0-SNAPSHOT.war /storage/emulated/0/jetty/webapps/
 
 $ $ANDROID_HOME/build-tools/34.0.0/dexdump -d ./classes.dex
 
-# rebuild and deploy (requires manual restart)
+# rebuild and deploy (requires manual restart), requires jdk8
 $ mvnw -f $PROJECT_DIR/webapp-parent/pom.xml clean package && $ANDROID_HOME/platform-tools/adb push $PROJECT_DIR/webapp-parent/web-app/target/web-app-1.0-SNAPSHOT-dexed.war /storage/emulated/0/jetty/webapps/
 
 # pair device through wifi

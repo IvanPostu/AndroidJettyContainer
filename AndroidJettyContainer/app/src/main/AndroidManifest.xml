@@ -22,7 +22,7 @@
         android:theme="@style/Theme.AndroidJettyContainer"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivityOld"
             android:exported="true"
             android:theme="@style/Theme.AndroidJettyContainer">
 
@@ -34,7 +34,7 @@
 
         </activity>
         <activity
-            android:name=".MainActivityOld"
+            android:name=".MainActivity"
             android:exported="true">
 
         </activity>
