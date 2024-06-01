@@ -23,7 +23,7 @@ class FirstFragment : Fragment() {
         textView = view.findViewById(R.id.textView1)
         textView.setOnClickListener {
             val action = FirstFragmentDirections.navigateToSecondFragment()
-                .setNum(23)
+                .setNum(99)
             Navigation.findNavController(view).navigate(action)
         }
 
