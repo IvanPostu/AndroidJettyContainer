@@ -1,10 +1,10 @@
 package com.ipostu.androidjettycontainer
 
-
 import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.documentfile.provider.DocumentFile
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,23 +41,37 @@ class MainActivity : AppCompatActivity() {
                         contentResolver.takePersistableUriPermission(uri, takeFlags)
                         prefs.edit().putString(KEY_SELECTED_FOLDER_URI, uri.toString()).apply()
                         Toast.makeText(this, "Folder selected: $uri", Toast.LENGTH_LONG).show()
+
+                        // Create test.txt file in the selected folder
+                        val content = "test".toByteArray()
+                        createTestFile(uri, content)
                     }
                 }
             }
 
         selectFolderButton.setOnClickListener {
-            if (isPermissionGranted()) {
-                openFolderPicker()
-            } else {
-                requestStoragePermissions()
-            }
+            pickDefaultWorkingExternalStorageDirectory()
         }
 
-        // Check if a folder is already selected
+        // Check if a folder is already selected, otherwise use default folder
         val selectedFolderUri = prefs.getString(KEY_SELECTED_FOLDER_URI, null)
         if (selectedFolderUri != null) {
-            // Use the selected folder URI as needed
+            val uri = Uri.parse(selectedFolderUri)
             Toast.makeText(this, "Selected folder: $selectedFolderUri", Toast.LENGTH_LONG).show()
+
+            // Create test.txt file in the selected folder
+            val content = "test".toByteArray()
+            createTestFile(uri, content)
+        } else {
+            pickDefaultWorkingExternalStorageDirectory()
+        }
+    }
+
+    private fun pickDefaultWorkingExternalStorageDirectory() {
+        if (isPermissionGranted()) {
+            openFolderPicker()
+        } else {
+            requestStoragePermissions()
         }
     }
 
@@ -82,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         folderPickerLauncher.launch(intent)
     }
 
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -96,4 +112,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun createTestFile(folderUri: Uri, fileContent: ByteArray) {
+        val pickedDir = DocumentFile.fromTreeUri(this, folderUri)
+        pickedDir?.let { dir ->
+            val testFile = dir.createFile("text/plain", "test.txt")
+            testFile?.let { file ->
+                try {
+                    contentResolver.openOutputStream(file.uri)?.use { outputStream ->
+                        outputStream.write(fileContent)
+                        outputStream.flush()
+                    }
+                    Toast.makeText(this, "test.txt created successfully", Toast.LENGTH_LONG).show()
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Error creating test.txt: ${e.message}", Toast.LENGTH_LONG)
+                        .show()
+                }
+            } ?: Toast.makeText(this, "Failed to create test.txt", Toast.LENGTH_LONG).show()
+        } ?: Toast.makeText(this, "Failed to access selected folder", Toast.LENGTH_LONG).show()
+    }
+
 }
