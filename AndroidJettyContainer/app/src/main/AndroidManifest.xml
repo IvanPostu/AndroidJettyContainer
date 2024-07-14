@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
@@ -22,7 +21,7 @@
         android:theme="@style/Theme.AndroidJettyContainer"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivityOld"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.AndroidJettyContainer">
 
@@ -33,11 +32,10 @@
             </intent-filter>
 
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+<!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:exported="true">-->
+<!--        </activity>-->
         <activity
             android:name=".EditorPreferenceActivity"
             android:theme="@style/Theme.AndroidJettyContainer" />
