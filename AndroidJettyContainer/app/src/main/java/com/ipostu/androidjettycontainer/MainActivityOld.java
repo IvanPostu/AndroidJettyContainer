@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.ipostu.androidjettycontainer.core.log.AndroidLog;
+import com.ipostu.androidjettycontainer.core.log.WebLoggerCollector;
 import com.ipostu.androidjettycontainer.util.AndroidInfo;
 import com.ipostu.androidjettycontainer.util.AppTools;
 
@@ -52,7 +52,6 @@ public class MainActivityOld extends PermissionActivity {
     private Button configButton;
     private Button downloadButton;
 
-    private TextView footer;
     private TextView info;
     private TextView console;
     private ScrollView consoleScroller;
@@ -62,14 +61,11 @@ public class MainActivityOld extends PermissionActivity {
     private Thread progressThread;
     private Handler handler;
     private BroadcastReceiver bcastReceiver;
+    private Handler logsHandler = new Handler();
 
     static {
         // Ensure parsing is not validating - does not work with android
         System.setProperty("org.eclipse.jetty.xml.XmlParser.Validating", "false");
-
-        // Bridge Jetty logging to Android logging
-        System.setProperty("org.eclipse.jetty.util.log.class", "com.ipostu.androidjettycontainer.core.log.AndroidLog");
-        org.eclipse.jetty.util.log.Log.setLog(new AndroidLog());
     }
 
     class ConsoleScrollTask implements Runnable {
@@ -119,6 +115,17 @@ public class MainActivityOld extends PermissionActivity {
 //        Intent serviceIntent = new Intent(this, MyForegroundService.class);
 //        startService(serviceIntent);
 
+        logsHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String log;
+                while ((log = WebLoggerCollector.getInstance().getLogsQueue().poll()) != null) {
+                    consolePrint(log);
+                }
+                logsHandler.postDelayed(this, 3000);
+            }
+        }, 3000); // Initial delay of 3 seconds
+
         bcastReceiver =
                 new BroadcastReceiver() {
 
@@ -130,8 +137,9 @@ public class MainActivityOld extends PermissionActivity {
                             consolePrint("<br/>Started Jetty at %s", new Date());
                             String[] connectors = intent.getExtras().getStringArray("connectors");
                             if (null != connectors) {
-                                for (int i = 0; i < connectors.length; i++)
+                                for (int i = 0; i < connectors.length; i++) {
                                     consolePrint(connectors[i]);
+                                }
                             }
 
                             AppTools.printNetworkInterfaces(consoleBuffer);
@@ -152,7 +160,6 @@ public class MainActivityOld extends PermissionActivity {
                 };
 
         registerReceiver(bcastReceiver, filter);
-
 
         // Watch for button clicks.
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -192,7 +199,6 @@ public class MainActivityOld extends PermissionActivity {
         });
 
         info = (TextView) findViewById(R.id.info);
-        footer = (TextView) findViewById(R.id.footer);
         console = (TextView) findViewById(R.id.console);
         consoleScroller = (ScrollView) findViewById(R.id.consoleScroller);
 
@@ -205,18 +211,12 @@ public class MainActivityOld extends PermissionActivity {
         }
         infoBuffer.append(AppTools.formatJettyInfoLine("On %s using Android version %s", AndroidInfo.getDeviceModel(), AndroidInfo.getOSVersion()));
         info.setText(Html.fromHtml(infoBuffer.toString()));
-
-
-        StringBuilder footerBuffer = new StringBuilder();
-        footerBuffer.append("<b>Project:</b> <a href=\"https://github.com/</a> <br/>");
-        footerBuffer.append("<b>Server:</b> http://www.eclipse.org/jetty/ <br/>");
-        footer.setText(Html.fromHtml(footerBuffer.toString()));
     }
 
-    public void consolePrint(String format, Object... args) {
+    private void consolePrint(String format, Object... args) {
         String msg = String.format(format, args);
-        if (msg.length() > 0) {
-            consoleBuffer.append(msg).append("<br/>");
+        if (!msg.isEmpty()) {
+            consoleBuffer.append(msg).append("<br/><br/>");
             console.setText(Html.fromHtml(consoleBuffer.toString()));
             Log.i(TAG, msg); // Only interested in non-empty lines being output to Log
         } else {
@@ -235,6 +235,8 @@ public class MainActivityOld extends PermissionActivity {
     protected void onDestroy() {
         if (bcastReceiver != null)
             unregisterReceiver(bcastReceiver);
+        handler.removeCallbacksAndMessages(null); // Stop the handler when the activity is destroyed
+        logsHandler.removeCallbacksAndMessages(null); // Stop the handler when the activity is destroyed
         super.onDestroy();
     }
 

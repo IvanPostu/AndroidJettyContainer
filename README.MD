@@ -11,7 +11,9 @@ $ $ANDROID_HOME/platform-tools/adb push ./webapp-parent/web-app/target/web-app-1
 $ $ANDROID_HOME/build-tools/34.0.0/dexdump -d ./classes.dex
 
 # rebuild and deploy (requires manual restart), requires jdk8
-$ mvnw -f $PROJECT_DIR/webapp-parent/pom.xml clean package && $ANDROID_HOME/platform-tools/adb push $PROJECT_DIR/webapp-parent/web-app/target/web-app-1.0-SNAPSHOT-dexed.war /storage/emulated/0/jetty/webapps/
+$ mvnw -f $PROJECT_DIR/webapp-parent/pom.xml clean package \
+    && $ANDROID_HOME/platform-tools/adb push \
+    $PROJECT_DIR/webapp-parent/web-app/target/web-app-1.0-SNAPSHOT-dexed.war /storage/emulated/0/jetty/webapps/
 
 # pair device through wifi
 $ $ANDROID_HOME/platform-tools/adb pair host:port
@@ -52,6 +54,33 @@ sslContextFactory.setTrustStorePath("truststore.p12");
 sslContextFactory.setKeyManagerPassword("keystore_password");
 sslContextFactory.setKeyStorePassword("keystore_password");
 sslContextFactory.setTrustStorePassword("truststore_password");
+```
+
+### REST Example
+```
+GET http://{host}:8080/web-app-1.0-SNAPSHOT-dexed/api/hello
+
+
+GET https://{host}:8443/web-app-1.0-SNAPSHOT-dexed/api/hello
+
+POST http://192.168.0.4:8080/web-app-1.0-SNAPSHOT-dexed/api/echo/my
+Content-Type: application/json
+
+{
+    "name": "test1222AAAAAAA",
+    "value": "value22"
+}
+
+
+POST http://192.168.0.4:8080/web-app-1.0-SNAPSHOT-dexed/api/echo/polymorphic
+Content-Type: application/json
+
+{
+    "name": "test1222AAAAAAA",
+    "QQQ": "test1222AAAAAAA",
+    "WWW": "test1222AAAAAAA",
+    "value": "value22"
+}
 ```
 
 ## References:
